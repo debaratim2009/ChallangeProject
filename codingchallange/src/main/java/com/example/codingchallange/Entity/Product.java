@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -19,12 +21,11 @@ import javax.persistence.TemporalType;
 @AllArgsConstructor
 @Entity
 public class Product {
-    public String getProductId() {
-		return productId;
+    public Long getProductId() {
+		return ID;
 	}
-
-	public void setProductId(String productId) {
-		this.productId = productId;
+    public Long setProductId() {
+		return ID;
 	}
 
 	public String getName() {
@@ -52,8 +53,9 @@ public class Product {
 	}
 
 	@Id
-    @Column(name = "ID")
-    private String productId;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "ID",updatable = false, nullable = false, unique = true)
+    private Long ID;
 
     @Column(name = "Name")
     private String name;

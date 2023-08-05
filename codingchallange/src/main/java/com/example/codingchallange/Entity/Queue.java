@@ -20,18 +20,18 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "Queue")
 public class Queue {
-    public String getProductId() {
+    public Long getProductId() {
 		return id;
 	}
 
-	public void setProductId(String productId) {
+	public void setProductId(Long productId) {
 		this.id = productId;
 	}
 
 	
 	@Id
     @Column(name = "ID")
-    private String id;
+    private Long id;
 
   
 }

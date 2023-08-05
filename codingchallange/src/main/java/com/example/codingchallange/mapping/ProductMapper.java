@@ -34,7 +34,6 @@ public class ProductMapper {
 	  Product product = new Product();
 	  product.setName(productRequest.getName());
 	  product.setPrice(productRequest.getPrice());
-	  product.setProductId(productRequest.getProductId());
 	  product.setStatus(productRequest.getStatus());
 	  //java.text.SimpleDateFormat sdf = 
 		//	     new java.text.SimpleDateFormat("yyyy-MM-dd");

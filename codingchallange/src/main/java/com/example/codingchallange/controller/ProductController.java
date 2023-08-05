@@ -3,6 +3,8 @@ package com.example.codingchallange.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.ValidationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,7 +60,9 @@ public class ProductController {
 	 @PutMapping(value = "/product/{id}")
 	    @ResponseStatus(HttpStatus.OK)
 	    public ResponseEntity<String> updateProduct(@PathVariable( "id" ) String id, @RequestBody ProductRequest productRequest) throws Exception {
-			productService.updateProduct(id,productRequest);
+		 if(id == null)
+				throw new ValidationException("ID Can't be Null!!");	
+		 productService.updateProduct(Long.parseLong(id),productRequest);
 			return new ResponseEntity("Product Updated", HttpStatus.OK);
 
 	    }
@@ -66,7 +70,9 @@ public class ProductController {
 	 @DeleteMapping(value = "/product/{id}")
 	    @ResponseStatus(HttpStatus.OK)
 	    public ResponseEntity<String> deleteProduct(@PathVariable( "id" ) String id) throws Exception {
-			productService.deleteProduct(id);
+			if(id == null)
+				throw new ValidationException("ID Can't be Null!!");
+		    productService.deleteProduct(Long.parseLong(id));
 			return new ResponseEntity("Product Deleted", HttpStatus.OK);
 
 	    }
@@ -81,15 +87,19 @@ public class ProductController {
 	 @PutMapping(value = "/products/approval-queue/{approvalId}/approve")
 	    @ResponseStatus(HttpStatus.OK)
 	    public ResponseEntity<String> approveProduct(@PathVariable( "approvalId" ) String id) throws Exception {
-			productService.approveProduct(id);
-			return new ResponseEntity("Product Approved", HttpStatus.OK);
+		 if(id == null)
+				throw new ValidationException("ID Can't be Null!!");	
+		 productService.approveProduct(Long.parseLong(id));
+		 return new ResponseEntity("Product Approved", HttpStatus.OK);
 
 	    }
 	 
 	 @PutMapping(value = "/products/approval-queue/{approvalId}/reject")
 	    @ResponseStatus(HttpStatus.OK)
 	    public ResponseEntity<String> rejectProduct(@PathVariable( "approvalId" ) String id) throws Exception {
-			productService.rejectProduct(id);
+		 if(id == null)
+				throw new ValidationException("ID Can't be Null!!");	
+		 	productService.rejectProduct(Long.parseLong(id));
 			return new ResponseEntity("Product Rejected", HttpStatus.OK);
 
 	    }

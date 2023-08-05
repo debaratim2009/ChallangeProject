@@ -7,15 +7,16 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import com.example.codingchallange.Entity.Product;
+import com.example.codingchallange.model.ProductResponse;
 @Component
 public class ProductRowMapper implements RowMapper {
 	
-	public Product mapRow(ResultSet rs, int arg1) throws SQLException {
+	public ProductResponse mapRow(ResultSet rs, int arg1) throws SQLException {
 
-		Product product = new Product();
+		ProductResponse product = new ProductResponse();
 
 		if (rs.getString("ID") != null)
-			product.setProductId(rs.getString("ID"));
+			product.setProductId(rs.getLong("ID"));
 		if (rs.getString("Name") != null)
 			product.setName(rs.getString("Name"));
 		if (rs.getString("price") != null)

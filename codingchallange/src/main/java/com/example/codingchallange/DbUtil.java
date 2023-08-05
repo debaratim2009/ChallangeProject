@@ -21,7 +21,7 @@ public class DbUtil {
 	
 
 	
-	public List<Product> searchProducts(String name,Float minPrice,Float maxPrice,Date minPostedDate,Date maxPostedDate){
+	public List<ProductResponse> searchProducts(String name,Float minPrice,Float maxPrice,Date minPostedDate,Date maxPostedDate){
 		StringBuilder query =  new StringBuilder();
 		Map<String, Object> params = new HashMap<>();
 		query.append("SELECT * FROM Product p Where");
@@ -30,19 +30,25 @@ public class DbUtil {
 			params.put("name", name);
 		}
 		if(minPostedDate!=null && maxPostedDate!=null) {
-			query.append(" and p.created between :minPostedDate and :maxPostedDate ");
+			if(params.isEmpty()) {
+				query.append("and");
+			}
+			query.append(" p.created between :minPostedDate and :maxPostedDate ");
 			params.put("minPostedDate", minPostedDate);
 			params.put("maxPostedDate", maxPostedDate);
 
 		}
 		
 		if(minPostedDate!=null && maxPostedDate!=null) {
-			query.append(" and p.price between :minPrice and :maxPrice ");
+			if(params.isEmpty()) {
+				query.append("and");
+			}
+			query.append(" p.price between :minPrice and :maxPrice ");
 			params.put("minPrice", minPrice);
 			params.put("maxPrice", maxPrice);
 
 		}
-		List<Product> products = jdbcTemplate.query(query.toString(), params,new ProductRowMapper());
+		List<ProductResponse> products = jdbcTemplate.query(query.toString(), params,new ProductRowMapper());
 		return products;
 		
 	}

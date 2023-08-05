@@ -108,7 +108,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "\r\n    {\r\n        \"productId\": 1013,\r\n        \"name\": \"item12\",\r\n        \"status\": \"active\",\r\n        \"price\": 6000.0\r\n    }\r\n",
+							"raw": "\r\n    {\r\n        \"name\": \"item12\",\r\n        \"status\": \"active\",\r\n        \"price\": 6000.0\r\n    }\r\n\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -155,57 +155,6 @@
 					],
 					"cookie": [],
 					"body": "Product Created"
-				},
-				{
-					"name": "http://localhost:8080/api/product",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "\r\n    {\r\n        \"productId\": 1014,\r\n        \"name\": \"item12\",\r\n        \"status\": \"active\",\r\n        \"price\": 6000.0\r\n    }\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/product",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"product"
-							]
-						}
-					},
-					"status": "Internal Server Error",
-					"code": 500,
-					"_postman_previewlanguage": "plain",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "text/plain;charset=UTF-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "31"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 04 Aug 2023 23:41:42 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "close"
-						}
-					],
-					"cookie": [],
-					"body": "Product exists with the same Id"
 				}
 			]
 		},

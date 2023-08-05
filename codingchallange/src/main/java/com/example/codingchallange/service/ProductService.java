@@ -26,15 +26,15 @@ public interface ProductService {
 	
 	public List<ProductResponse> getProducts() throws Exception ;
 		public void createProduct(ProductRequest productRequest) throws Exception ;
-	public void updateProduct(String id, ProductRequest productRequest) throws Exception ;
+	public void updateProduct(Long id, ProductRequest productRequest) throws Exception ;
 
-	public void deleteProduct(String id) throws Exception ;
+	public void deleteProduct(Long id) throws Exception ;
 
 	public List<ProductResponse> getProductsFromApprovalQueue() throws Exception;
 
-	public void approveProduct(String id) throws Exception;
+	public void approveProduct(Long id) throws Exception;
 
-	public void rejectProduct(String id) throws Exception;
+	public void rejectProduct(Long id) throws Exception;
 	
 	public List<ProductResponse> searchProducts(String prodName,Float minPrice,Float maxPrice,Date minPostedDate,Date maxPostedDate);
 		

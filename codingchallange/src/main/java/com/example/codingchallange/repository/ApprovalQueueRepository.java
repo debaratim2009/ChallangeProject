@@ -11,7 +11,7 @@ import com.example.codingchallange.Entity.Product;
 
 
 @Repository
-public interface ApprovalQueueRepository extends JpaRepository<Queue, String> {
+public interface ApprovalQueueRepository extends JpaRepository<Queue, Long> {
 
 	
 

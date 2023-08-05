@@ -64,25 +64,26 @@ public class ProductServiceUtil implements ProductService {
 
 	public void createProduct(ProductRequest productRequest) throws Exception {
 		
-		Product existingProduct = productRepository.findById(productRequest.getProductId()).get();
-		if(existingProduct!=null)
-			throw new ValidationException("Product exists with the same Id");
 		if (productRequest.getPrice() > MAXPRICE)
 			throw new ValidationException("Product Price Must Be Less Than MaxPrice " + MAXPRICE);
+		Product product = productMapper.mapRequestToProduct(productRequest);
+		Product createdProduct = productRepository.save(product);
+
 		if (productRequest.getPrice() > _5000) {
 			QueueDto queueDto = new QueueDto();
-			queueDto.setId(productRequest.getProductId());
+			queueDto.setId(createdProduct.getProductId());
 			queueRepository.save(productMapper.mapQueue(queueDto));
 
 		}
-		Product product = productMapper.mapRequestToProduct(productRequest);
-		productRepository.save(product);
-
+	
 	}
 
-	public void updateProduct(String id, ProductRequest productRequest) throws Exception {
+	public void updateProduct(Long id, ProductRequest productRequest) throws Exception {
 		if (productRequest.getPrice() > MAXPRICE)
 			throw new ValidationException("Product Price Must Be Less Than MaxPrice " + MAXPRICE);
+		
+		if(id == null)
+			throw new ValidationException("ID can't be empty");
 		Product updateProduct = productRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Product not exist with id: " + id));
 		if(productRequest.getPrice()>(updateProduct.getPrice()+updateProduct.getPrice()/2)) {
@@ -98,7 +99,9 @@ public class ProductServiceUtil implements ProductService {
 
 	}
 
-	public void deleteProduct(String id) throws Exception {
+	public void deleteProduct(Long id) throws Exception {
+		if(id == null)
+			throw new ValidationException("ID can't be empty");
 		Product deleteProduct = productRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Product not exist with id: " + id));
 		QueueDto queueDto = new QueueDto();
@@ -116,7 +119,7 @@ public class ProductServiceUtil implements ProductService {
 
 	}
 
-	public void approveProduct(String id) throws Exception {
+	public void approveProduct(Long id) throws Exception {
 		Queue updateQueue = queueRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Product not exist in approval queue: " + id));
 		Product updateProduct = productRepository.findById(id)
@@ -127,7 +130,7 @@ public class ProductServiceUtil implements ProductService {
 
 	}
 
-	public void rejectProduct(String id) throws Exception {
+	public void rejectProduct(Long id) throws Exception {
 		Queue updateQueue = queueRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Product not exist in approval queue: " + id));
 		queueRepository.delete(updateQueue);
@@ -135,10 +138,10 @@ public class ProductServiceUtil implements ProductService {
 	}
 	
 	public List<ProductResponse> searchProducts(String prodName,Float minPrice,Float maxPrice,Date minPostedDate,Date maxPostedDate){
-		List<Product> products = dbUtil.searchProducts(prodName,minPrice,maxPrice,minPostedDate,maxPostedDate);
-		List<ProductResponse> productDtoList = mapProduct(products);
-		System.out.print("Product is===>" + products.get(0));
-		return productDtoList;
+		List<ProductResponse> products = dbUtil.searchProducts(prodName,minPrice,maxPrice,minPostedDate,maxPostedDate);
+		/*List<ProductResponse> productDtoList = mapProduct(products);
+		System.out.print("Product is===>" + products.get(0));*/
+		return products;
 		
 	}
 }

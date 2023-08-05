@@ -10,7 +10,7 @@ import com.example.codingchallange.Entity.Product;
 
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, String> {
+public interface ProductRepository extends JpaRepository<Product, Long> {
 
 	@Query("SELECT p FROM Product p WHERE p.status='active' order by p.Created")
 	List<Product> getActiveProducts();

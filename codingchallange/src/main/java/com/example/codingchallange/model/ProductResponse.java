@@ -14,7 +14,7 @@ import lombok.Setter;
 @Component
 public class ProductResponse {
 		//@JMap
-		private String productId;
+		private Long productId;
 		//@JMap
 	    private String name;
 	    
@@ -31,10 +31,10 @@ public class ProductResponse {
 		public void setCreationDate(Date creationDate) {
 			this.creationDate = creationDate;
 		}
-		public String getProductId() {
+		public Long getProductId() {
 			return productId;
 		}
-		public void setProductId(String productId) {
+		public void setProductId(Long productId) {
 			this.productId = productId;
 		}
 		public String getName() {
