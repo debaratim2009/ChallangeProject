@@ -30,7 +30,7 @@ public class DbUtil {
 			params.put("name", name);
 		}
 		if(minPostedDate!=null && maxPostedDate!=null) {
-			if(params.isEmpty()) {
+			if(!params.isEmpty()) {
 				query.append("and");
 			}
 			query.append(" p.created between :minPostedDate and :maxPostedDate ");
@@ -39,8 +39,8 @@ public class DbUtil {
 
 		}
 		
-		if(minPostedDate!=null && maxPostedDate!=null) {
-			if(params.isEmpty()) {
+		if(minPrice!=null && maxPrice!=null) {
+			if(!params.isEmpty()) {
 				query.append("and");
 			}
 			query.append(" p.price between :minPrice and :maxPrice ");
