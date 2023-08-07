@@ -41,10 +41,17 @@ public class ProductController {
 	@GetMapping(value = "/products/search")
 	public ResponseEntity<List<ProductResponse>> searchProducts(@RequestParam(required = false) String prodName,
 			@RequestParam(required = false) Float minPrice, @RequestParam(required = false) Float maxPrice,
-			@RequestParam(required = false) Date minPostedDate, @RequestParam(required = false) Date maxPostedDate)
+			@RequestParam(required = false) String minPostedDate, @RequestParam(required = false) String maxPostedDate)
 			throws Exception {
-	
-		List<ProductResponse> products = productService.searchProducts(prodName,minPrice,maxPrice,minPostedDate,maxPostedDate);
+				
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+		Date minimumPostedDate = null;
+		Date maximumPostedDate = null;
+		if (minPostedDate != null)
+			minimumPostedDate = formatter.parse(minPostedDate);
+		if (maxPostedDate != null)
+			maximumPostedDate = formatter.parse(maxPostedDate);
+		List<ProductResponse> products = productService.searchProducts(prodName,minPrice,maxPrice,minimumPostedDate,maximumPostedDate);
 		return new ResponseEntity(products, HttpStatus.OK);
 		
 	}
